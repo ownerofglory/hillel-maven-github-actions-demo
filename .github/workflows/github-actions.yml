@@ -18,6 +18,7 @@ jobs:
 
 
   test:
+    needs: compile
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -30,6 +31,7 @@ jobs:
         run: mvn --batch-mode clean test
 
   package:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
