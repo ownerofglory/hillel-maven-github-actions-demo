@@ -1,0 +1,33 @@
+name: Hillel Maven Demo Pipeline
+
+on: [push]
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v3
+      - name: Compile sources
+        run: mvn --batch-mode clean compile
+
+
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v3
+      - name: Compile sources
+        run: mvn --batch-mode clean test
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v3
+      - name: Compile sources
+        run: mvn --batch-mode clean package
