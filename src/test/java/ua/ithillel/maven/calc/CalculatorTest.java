@@ -20,6 +20,6 @@ public class CalculatorTest {
 
         double actual = calculator.add(a, b);
 
-        assert expected == actual;
+        assert expected != actual;
     }
 }

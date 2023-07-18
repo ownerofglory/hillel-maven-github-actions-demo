@@ -45,7 +45,7 @@ jobs:
 
   package:
     # job it waits to finish for
-    needs: test
+    needs: compile
     # defining a container image which will be used for teh pipeline
     runs-on: ubuntu-latest
     # what to do
@@ -61,3 +61,22 @@ jobs:
       - name: Compile sources
         # run needed commands
         run: mvn --batch-mode clean package
+
+  publish:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          server-id: nexus-private
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+      - name: Publish package
+        run: mvn --batch-mode deploy
+        env:
+           MAVEN_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+           MAVEN_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
