@@ -18,9 +18,15 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+          server-id: nexus-private
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
       - name: Compile sources
         # run needed commands
         run: mvn --batch-mode clean compile
+        env:
+          MAVEN_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
 
 
@@ -39,9 +45,15 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+          server-id: nexus-private
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
       - name: Compile sources
         # run needed commands
         run: mvn --batch-mode clean test
+        env:
+          MAVEN_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
   package:
     # job it waits to finish for
@@ -58,9 +70,15 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+          server-id: nexus-private
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
       - name: Compile sources
         # run needed commands
         run: mvn --batch-mode clean package
+        env:
+          MAVEN_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
   publish:
     needs: package
